@@ -8,8 +8,8 @@ menu:
   关于我: /2019/about
 
 # 网站图标和侧边栏logo
-favicon: /favicon.ico
-logo: /images/ayer-side.svg
+favicon: /Rocket.ico
+logo: /images/Rocket.png
 
 # 封面配置
 # enable-是否启用封面；path-封面背景图；logo-封面logo
