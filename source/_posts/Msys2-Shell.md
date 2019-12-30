@@ -27,7 +27,7 @@ tags:
 >  3. Linux环境中装Windows的运行环境，比如wine，是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，Mac OSX 及 BSD 等）上运行 Windows 应用的兼容层。 我个人使用的感觉是兼容性有点呵呵，Windows这个变化的速度，这个兼容性稳定性不敢恭维。（原生系统给你满分，Windows拼人品）。
 >  4. Windows环境中装Linux的运行环境，MinGW & Cygwin， 和上面一个类似，不过呢好在Linux的兼容层稳定一些，使用感觉也是一般，大的程序还是困难。
 
-注意我要说的第五中方案来了，就是[Msys2][2]，他其实是一个 Windows平台上的 MinGW Cygwin pacman 融合到了一起的产物，好处就是他真的提供了一个比较舒服的 POSIX-compliant 操作系统，包管理使用的是pacman，内置了大部分常用的shell命令（例如 wget expect tcl cat grep vim-huge ），但是他存在一个问题，就是有一些程序需要调用的Windows环境，还是不能很好地运行，这个时候关键的地方来了，要是能干脆抛开Msys2的环境直接使用Windows版本的软件，只是将Msys2的Shell作为入口呢？对哦，可以的。（cmd能做到的，我都能做到，而且更像Linux）
+注意我要说的第五种方案来了，就是[Msys2][2]，他其实是一个 Windows平台上的 MinGW Cygwin pacman 融合到了一起的产物，好处就是他真的提供了一个比较舒服的 POSIX-compliant 操作系统，包管理使用的是pacman，内置了大部分常用的shell命令（例如 wget expect tcl cat grep vim-huge ），但是他存在一个问题，就是有一些程序需要调用的Windows环境，还是不能很好地运行，这个时候关键的地方来了，要是能干脆抛开Msys2的环境直接使用Windows版本的软件，只是将Msys2的Shell作为入口呢？对哦，可以的。（cmd能做到的，我都能做到，而且更像Linux）
 
 没错！从头到尾，我定制的底层都是在Windows上，但是开发过程由于针对Python这类脚本语言，很多交互都限于Msys2的shell和python之间，所以几乎可以模拟出Linux的感觉。对于移植到服务器上更为贴近。
 
