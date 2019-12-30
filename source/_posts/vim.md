@@ -125,7 +125,7 @@ map \\ \c<space>
 
 ---
 
-### 主题 和 Robbin
+### 主题 和 强大的Airline
 
     Plugin 'morhetz/gruvbox'
     Plugin 'vim-airline/vim-airline'
