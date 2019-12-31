@@ -78,24 +78,26 @@ Msys2 Python nodejs 软件
 
 ### 更新语言
 
-不清楚的原因，有些软件可能出现乱码，请删除这个从环境变量中过去语言的选项。
-即删除这个文件中的这一行。
+我这里通过更改minttyrc引入英文配置，暂时不需要更改lang.sh，详见下文minttyrc部分
 
-    configure /etc/profile.d/lang.sh
-
-    # test -z "${LC_ALL:-${LC_CTYPE:-$LANG}}" && export LANG=""
+    不清楚的原因，有些软件可能出现乱码，请删除这个从环境变量中过去语言的选项。
+    即删除这个文件中的这一行。
+        configure /etc/profile.d/lang.sh
+        # test -z "${LC_ALL:-${LC_CTYPE:-$LANG}}" && export LANG=""
 
 ### 安装一些必要的软件包
 
 按照我个人的习惯我安装了一下几个。
 注意 `winpty` 能够解决很多现实不正常的情况。
 
-    pacman -S vim       (ln -s /bin/vim.exe /bin/vi)
+    pacman -S vim
     pacman -S zsh
     pacman -S p7zip
     pacman -S rsync
     pacman -S git
     pacman -S winpty
+
+    ln -s /bin/vim.exe /bin/vi  # 给vim做个软链接
 
 ### 配置主目录
 
@@ -108,7 +110,7 @@ Msys2 Python nodejs 软件
 
     db_enum: cache builtin
 
-    db_home: /home
+    db_home: /root
     db_shell: /usr/bin/bash
     db_gecos: cygwin desc
 
@@ -120,7 +122,7 @@ Msys2 Python nodejs 软件
 
 不要问我为什么，这个东西太好用了，执行
 
-    sh -c "$(wget http://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
 再次编辑一下 /etc/nsswitch.conf ， 启用zsh
 
@@ -131,7 +133,7 @@ Msys2 Python nodejs 软件
 
     db_enum: cache builtin
 
-    db_home: /home
+    db_home: /root
     db_shell: /usr/bin/zsh
     db_gecos: cygwin desc
 
@@ -143,7 +145,7 @@ Msys2 Python nodejs 软件
 
 安装个我喜欢的字体，[Source Code Pro Semibold][2]
 配置文件 ~/.minttyrc，
-（如果上文定制了home，则是home下的，如果没有定制home，则可能是Windows用户目录下）
+（如果上文定制了db_home，则是root下的，如果没有定制root，则可能是Windows用户目录下）
 
     BoldAsFont=-1
     CursorType=block
@@ -151,6 +153,10 @@ Msys2 Python nodejs 软件
     FontHeight=12
     FontWeight=600
     Scrollbar=none
+    Columns=100
+    Rows=30
+    Locale=C
+    Charset=UTF-8
 
     ForegroundColour=235, 219, 178
     BackgroundColour=  0,  43,  54

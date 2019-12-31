@@ -49,7 +49,6 @@ Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " beauty
-Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'airblade/vim-gitgutter'
@@ -101,7 +100,6 @@ let g:airline#extensions#tabline#enabled = 1
 " Map
 let g:user_emmet_leader_key='<C-Y>'
 map <C-n> :NERDTreeToggle<CR>
-map TT :TagbarToggle<CR>
 map \\ \c<space>
 ```
 
@@ -138,13 +136,11 @@ map \\ \c<space>
 
 ### 美化界面
 
-    Plugin 'majutsushi/tagbar'
     Plugin 'scrooloose/nerdtree'
     Plugin 'bronson/vim-trailing-whitespace'
     Plugin 'airblade/vim-gitgutter'
     Plugin 'yggdroot/indentline'
 
-tagbar 的快捷键我定制的 是TT，需要ctags进行支持，（先要在目录用 ctags -R 生成索引文件才行）。
 nerdtree 的快捷键是 <C-n>, ctrl+n， 可以查看所在文件夹的文件，并且快速切换。
 vim-trailing-whitespace， 结尾多空格会提示。
 vim-gitgutter， 用git进行版本控制的话，可以在左侧看到变化的行。
