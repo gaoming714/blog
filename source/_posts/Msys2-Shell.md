@@ -147,20 +147,20 @@ Msys2 Python nodejs 软件
 配置文件 ~/.minttyrc，
 （如果上文定制了db_home，则是root下的，如果没有定制root，则可能是Windows用户目录下）
 
-    BoldAsFont=-1
-    CursorType=block
-    Font=Source Code Pro Semibold
-    FontHeight=12
-    FontWeight=600
-    Scrollbar=none
-    Columns=100
-    Rows=30
-    Locale=C
-    Charset=UTF-8
+BoldAsFont=-1
+CursorType=block
+Font=Source Code Pro Semibold
+FontHeight=12
+FontWeight=600
+Scrollbar=none
+Columns=126
+Rows=45
+Locale=C
+Charset=UTF-8
 
-    ForegroundColour=235, 219, 178
-    BackgroundColour=  0,  43,  54
-    CursorColour=     65, 255,  65
+ForegroundColour=235, 219, 178
+BackgroundColour=  0,  43,  54
+CursorColour=     65, 255,  65
 
 ### 定制编程链
 
