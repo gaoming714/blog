@@ -48,16 +48,16 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" beauty
 Plugin 'scrooloose/nerdtree'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'yggdroot/indentline'
+Plugin 'bronson/vim-trailing-whitespace'
 " edit
-Plugin 'ervandew/supertab'
+Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
+Plugin 'junegunn/gv.vim'
+Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'mattn/emmet-vim'
 Plugin 'jiangmiao/auto-pairs'
 
@@ -88,8 +88,8 @@ set backspace=indent,eol,start
 
 " Theme
 set t_Co=256
-syntax enable
 set background=dark
+syntax enable
 colorscheme gruvbox
 
 " airline
@@ -100,7 +100,6 @@ let g:airline#extensions#tabline#enabled = 1
 " Map
 let g:user_emmet_leader_key='<C-Y>'
 map <C-n> :NERDTreeToggle<CR>
-map \\ \c<space>
 ```
 
 简单介绍一下，包含两部分，整体是vundle推荐模板，前一部分 （Basic settings 之前）是列出需要载入的插件，一部分是对插件的一些配置，也有我自己的个人偏好。
@@ -123,44 +122,41 @@ map \\ \c<space>
 
 ---
 
-### 主题 和 强大的Airline
+### 主题 & 强大的Airline & nerdtree
 
     Plugin 'morhetz/gruvbox'
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'bronson/vim-trailing-whitespace'
+    Plugin 'yggdroot/indentline'
 
 打开后的最上面的缓存信息和下面两行的各种必要信息，可以说是几乎无所不包，重点是强大，并且好看。
 有的下伙伴可能会遇到看不到都是方框，没有三角箭头的问题，具体我还需要定位问题所在，目前我知道 `let g:airline_powerline_fonts = 1` 这个会影响，原因我还不清楚。
-
----
-
-### 美化界面
-
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'bronson/vim-trailing-whitespace'
-    Plugin 'airblade/vim-gitgutter'
-    Plugin 'yggdroot/indentline'
-
 nerdtree 的快捷键是 <C-n>, ctrl+n， 可以查看所在文件夹的文件，并且快速切换。
 vim-trailing-whitespace， 结尾多空格会提示。
-vim-gitgutter， 用git进行版本控制的话，可以在左侧看到变化的行。
 indentline， 缩进的时候有醒目一些的字符。
 
 ---
 
 ### 增强编辑
 
-    Plugin 'ervandew/supertab'
+    Plugin 'tpope/vim-fugitive'
     Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-commentary'
+    Plugin 'junegunn/gv.vim'
+    Plugin 'ervandew/supertab'
     Plugin 'godlygeek/tabular'
-    Plugin 'scrooloose/nerdcommenter'
     Plugin 'mattn/emmet-vim'
     Plugin 'jiangmiao/auto-pairs'
 
-这几个增强编辑的功能不是一两句能讲明白的，百度一下很容易的，而且有一些语言支持的也不全面，你或许可以先安装好，有空再探索一下。我只说两个，surround 和 nerdcommenter
+这几个增强编辑的功能不是一两句能讲明白的，百度一下很容易的，而且有一些语言支持的也不全面，你或许可以先安装好，有空再探索一下。简单说说 surround & vim-commentary
 
 surround用起来和容易处理旁边的一对(){}""等等，方法只需要输入 `ct(` 将最近的一对符号变成() `cs"'` 最近的双引号变成单引号。
-nerdcommenter，快速注释和反注释，只需要选好位置，输入 `\\`  (这里我做了Map，原始输入的是 `\c<space>`）
+vim-commentary 快捷键是  gcc ，或者选定区域用gc。
+fugitive 和 gv 用来Git版本控制，通过 :G 等进行操作，请自行百度详细文档。
+
+还有个插件叫 gitgutter用来显示哪些行与baseline不同，我个人感觉对我作用不大。
 
 ---
 
