@@ -78,7 +78,7 @@ Msys2 Python nodejs 软件
 
 ### 更新语言
 
-我这里通过更改minttyrc引入英文配置，暂时不需要更改lang.sh，详见下文minttyrc部分
+我这里通过更改minttyrc引入英文配置，暂时不需要更改lang.sh，此步骤可以略过，详见下文minttyrc部分，功能同Locale=C。
 
     不清楚的原因，有些软件可能出现乱码，请删除这个从环境变量中过去语言的选项。
     即删除这个文件中的这一行。
@@ -88,7 +88,7 @@ Msys2 Python nodejs 软件
 ### 安装一些必要的软件包
 
 按照我个人的习惯我安装了一下几个。
-注意 `winpty` 能够解决很多现实不正常的情况。
+注意 `winpty` 能够解决很多显示不正常的情况。
 
     pacman -S vim
     pacman -S zsh
