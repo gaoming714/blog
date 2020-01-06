@@ -96,6 +96,7 @@ colorscheme gruvbox
 let g:airline_theme="luna"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#wordcount#filetypes = 0
 
 " Map
 let g:user_emmet_leader_key='<C-Y>'

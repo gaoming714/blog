@@ -153,8 +153,8 @@ Font=Source Code Pro Semibold
 FontHeight=12
 FontWeight=600
 Scrollbar=none
-Columns=126
-Rows=45
+Columns=100
+Rows=35
 Locale=C
 Charset=UTF-8
 
