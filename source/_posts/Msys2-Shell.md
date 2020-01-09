@@ -165,25 +165,27 @@ CursorColour=     65, 255,  65
 ### 定制编程链
 
 如果没有这一步，前面都是假把式，毕竟我是为了编程才引入的Msys2.
-其实很简单的，就是把Python的脚本目录加入到环境变量中就可以了，但是需要winpty和python作为前缀。
+其实很简单的，就是把Python的脚本目录加入到环境变量中就可以了，但是需要winpty作为前缀。
 所以我这里写了一个Shell的函数供大家使用。
 请把这几行加入到你的  .bashrc 或者 .zshrc 中。
 
     # Python
     PATH_python=/d/Portable/Python/python-3.7.4.amd64
-    function py(){ winpty "${PATH_python}/python" "${PATH_python}/Scripts/$@" ;}
-    function python(){ winpty "${PATH_python}/python" "${PATH_python}/Scripts/ipython" "$@" ;}
+    PATH=${PATH_python}:${PATH_python}/Scripts:$PATH
+
     # Node.js
     PATH_node=/d/Portable/nodejs
     PATH=${PATH_node}:$PATH
 
+    # alias
+    alias @@="winpty"
+    alias python="winpty ipython"
+    alias npm="winpty npm.cmd"
+
 使用python 执行脚本（我个人用ipython代替了python）：
 
     bash# python
-
-使用python的其他系统脚本，例如pip安装package，前面加py作为前缀：
-
-    bash# py pip install
+    bash# pip install
 
 使用nodejs 执行脚本，因为已经在系统变量中，所以锁心所欲啦。
 
