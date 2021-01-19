@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    vim 炫酷定制计划 |  Jokerpy
+  </title>
+  
+  <link rel="shortcut icon" href="/joker.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b8291c3f356358bb1c0ca39cae241baf";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-vim" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  vim 炫酷定制计划
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/30/vim/" class="article-date">
+  <time datetime="2019-12-30T20:30:48.000Z" itemprop="datePublished">2019-12-30</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="/images/vim-01.png" alt=""><br><img src="/images/vim-02.png" alt=""><br><img src="/images/vim-03.png" alt=""></p>
+<p>有小伙伴咨询为什么我的 VI 那么好看，其实就是一个主题和插件，并没什么高大上的，筛选适合自己的插件可能久一些，这里讲讲方法和我的定制步骤，欢迎继续吐槽我。</p>
+<blockquote>
+<ol>
+<li>安装插件管理器 Vundle</li>
+<li>插件 &amp; 使用技巧</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="安装插件管理器-Vundle"><a href="#安装插件管理器-Vundle" class="headerlink" title="安装插件管理器 Vundle"></a>安装插件管理器 Vundle</h2><p>要想让vim功能强大，插件是必不少的，安装插件方法有的很多，思路大体上都是复制插件到指定的目录(~/.vim/)。</p>
+<blockquote>
+<p>列出了一些安装插件的方法：<br>Vundle, NeoBundle, VimPlug, Pathogen<br>我只讲我认为最方便的Vundle，其他请自行百度。<br>Vundle的作用是帮助你把需要的插件安装到恰当的位置。</p>
+</blockquote>
+<p>利用git克隆项目，</p>
+<pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></pre><p>创建或者打开 <code>~/.vimrc</code>， 文件内粘贴以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">set nocompatible              &quot; be iMproved, required</span><br><span class="line">filetype off                  &quot; required</span><br><span class="line"></span><br><span class="line">&quot; set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+&#x3D;~&#x2F;.vim&#x2F;bundle&#x2F;Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">&quot; alternatively, pass a path where Vundle should install plugins</span><br><span class="line">&quot;call vundle#begin(&#39;~&#x2F;some&#x2F;path&#x2F;here&#39;)</span><br><span class="line"></span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &#39;VundleVim&#x2F;Vundle.vim&#39;</span><br><span class="line">&quot; theme</span><br><span class="line">Plugin &#39;morhetz&#x2F;gruvbox&#39;</span><br><span class="line">Plugin &#39;vim-airline&#x2F;vim-airline&#39;</span><br><span class="line">Plugin &#39;vim-airline&#x2F;vim-airline-themes&#39;</span><br><span class="line">Plugin &#39;scrooloose&#x2F;nerdtree&#39;</span><br><span class="line">Plugin &#39;yggdroot&#x2F;indentline&#39;</span><br><span class="line">Plugin &#39;bronson&#x2F;vim-trailing-whitespace&#39;</span><br><span class="line">&quot; edit</span><br><span class="line">Plugin &#39;tpope&#x2F;vim-fugitive&#39;</span><br><span class="line">Plugin &#39;tpope&#x2F;vim-surround&#39;</span><br><span class="line">Plugin &#39;tpope&#x2F;vim-commentary&#39;</span><br><span class="line">Plugin &#39;junegunn&#x2F;gv.vim&#39;</span><br><span class="line">Plugin &#39;ervandew&#x2F;supertab&#39;</span><br><span class="line">Plugin &#39;godlygeek&#x2F;tabular&#39;</span><br><span class="line">Plugin &#39;mattn&#x2F;emmet-vim&#39;</span><br><span class="line">Plugin &#39;jiangmiao&#x2F;auto-pairs&#39;</span><br><span class="line"></span><br><span class="line">&quot; All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()            &quot; required</span><br><span class="line">filetype plugin indent on    &quot; required</span><br><span class="line">&quot; To ignore plugin indent changes, instead use:</span><br><span class="line">&quot;filetype plugin on</span><br><span class="line">&quot;</span><br><span class="line">&quot; Brief help</span><br><span class="line">&quot; :PluginList       - lists configured plugins</span><br><span class="line">&quot; :PluginInstall    - installs plugins; append &#96;!&#96; to update or just :PluginUpdate</span><br><span class="line">&quot; :PluginSearch foo - searches for foo; append &#96;!&#96; to refresh local cache</span><br><span class="line">&quot; :PluginClean      - confirms removal of unused plugins; append &#96;!&#96; to auto-approve removal</span><br><span class="line">&quot;</span><br><span class="line">&quot; see :h vundle for more details or wiki for FAQ</span><br><span class="line">&quot; Put your non-Plugin stuff after this line</span><br><span class="line"></span><br><span class="line">&quot; Basic settings</span><br><span class="line">set nu</span><br><span class="line">set expandtab</span><br><span class="line">set tabstop&#x3D;4</span><br><span class="line">set shiftwidth&#x3D;4</span><br><span class="line">set softtabstop&#x3D;4</span><br><span class="line">set shiftround</span><br><span class="line">set smartindent</span><br><span class="line">set cursorline</span><br><span class="line">set backspace&#x3D;indent,eol,start</span><br><span class="line"></span><br><span class="line">&quot; Theme</span><br><span class="line">set t_Co&#x3D;256</span><br><span class="line">set background&#x3D;dark</span><br><span class="line">syntax enable</span><br><span class="line">colorscheme gruvbox</span><br><span class="line"></span><br><span class="line">&quot; airline</span><br><span class="line">let g:airline_theme&#x3D;&quot;luna&quot;</span><br><span class="line">let g:airline_powerline_fonts &#x3D; 1</span><br><span class="line">let g:airline#extensions#tabline#enabled &#x3D; 1</span><br><span class="line">let g:airline#extensions#wordcount#filetypes &#x3D; 0</span><br><span class="line"></span><br><span class="line">&quot; Map</span><br><span class="line">let g:user_emmet_leader_key&#x3D;&#39;&lt;C-Y&gt;&#39;</span><br><span class="line">map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+
+<p>简单介绍一下，包含两部分，整体是vundle推荐模板，前一部分 （Basic settings 之前）是列出需要载入的插件，一部分是对插件的一些配置，也有我自己的个人偏好。<br>最后的Map是我自定义的快捷键。先copy上，看看效果。</p>
+<p>保存这个文件。打开 vim ，这个时候可能提示缺失一些东西，因为我们还没真正安装，直接回车进入。<br>输入 <code>:PluginInstall</code> 确认安装。等待，可能需要几分钟或者十几分钟。</p>
+<p>然后关闭vim后重新打开，世界如此美好。</p>
+<hr>
+<h2 id="插件-amp-使用技巧"><a href="#插件-amp-使用技巧" class="headerlink" title="插件 &amp; 使用技巧"></a>插件 &amp; 使用技巧</h2><h3 id="Vundle"><a href="#Vundle" class="headerlink" title="Vundle"></a>Vundle</h3><pre><code>Plugin &apos;VundleVim/Vundle.vim&apos;</code></pre><p>插件管理器本身，没啥讲的。</p>
+<hr>
+<h3 id="主题-amp-强大的Airline-amp-nerdtree"><a href="#主题-amp-强大的Airline-amp-nerdtree" class="headerlink" title="主题 &amp; 强大的Airline &amp; nerdtree"></a>主题 &amp; 强大的Airline &amp; nerdtree</h3><pre><code>Plugin &apos;morhetz/gruvbox&apos;
+Plugin &apos;vim-airline/vim-airline&apos;
+Plugin &apos;vim-airline/vim-airline-themes&apos;
+Plugin &apos;scrooloose/nerdtree&apos;
+Plugin &apos;bronson/vim-trailing-whitespace&apos;
+Plugin &apos;yggdroot/indentline&apos;</code></pre><p>打开后的最上面的缓存信息和下面两行的各种必要信息，可以说是几乎无所不包，重点是强大，并且好看。<br>有的下伙伴可能会遇到看不到都是方框，没有三角箭头的问题，具体我还需要定位问题所在，目前我知道 <code>let g:airline_powerline_fonts = 1</code> 这个会影响，原因我还不清楚。<br>nerdtree 的快捷键是 <C-n>, ctrl+n， 可以查看所在文件夹的文件，并且快速切换。<br>vim-trailing-whitespace， 结尾多空格会提示。<br>indentline， 缩进的时候有醒目一些的字符。</p>
+<hr>
+<h3 id="增强编辑"><a href="#增强编辑" class="headerlink" title="增强编辑"></a>增强编辑</h3><pre><code>Plugin &apos;tpope/vim-fugitive&apos;
+Plugin &apos;tpope/vim-surround&apos;
+Plugin &apos;tpope/vim-commentary&apos;
+Plugin &apos;junegunn/gv.vim&apos;
+Plugin &apos;ervandew/supertab&apos;
+Plugin &apos;godlygeek/tabular&apos;
+Plugin &apos;mattn/emmet-vim&apos;
+Plugin &apos;jiangmiao/auto-pairs&apos;</code></pre><p>这几个增强编辑的功能不是一两句能讲明白的，百度一下很容易的，而且有一些语言支持的也不全面，你或许可以先安装好，有空再探索一下。简单说说 surround &amp; vim-commentary</p>
+<p>surround用起来和容易处理旁边的一对(){}””等等，方法只需要输入 <code>ct(</code> 将最近的一对符号变成() <code>cs&quot;&#39;</code> 最近的双引号变成单引号。<br>vim-commentary 快捷键是  gcc ，或者选定区域用gc。<br>fugitive 和 gv 用来Git版本控制，通过 :G 等进行操作，请自行百度详细文档。</p>
+<p>还有个插件叫 gitgutter用来显示哪些行与baseline不同，我个人感觉对我作用不大。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>折腾vim纯属爱好，重要的是还利用vim编程，代码水平并不会因为编辑器提高。<br>其实更多的时候编程并不会直接就用vim，我也非常不建议用vim进行高强度的项目开发，那么多好用的IDE那么贵也是有原因的，IDE都是很有针对性的，可以很好地完成项目，VIM只是在处理一些琐事，作为一个小而美的工具存在，不要因为喜欢骑行就月月西藏青海新疆。</p>
+<p>编程虽苦，但使用这么舒服的工具，也是很欣喜啊。</p>
+<p>PS：需要网络不是太好，我可以直接打个包发给你我定制的VIM，邮箱<a href="mailto:gaoming714@126.com">gaoming714@126.com</a>，顺便扫个码。哈哈哈。</p>
+<p>更多插件可以查这个这个网站<br><a href="https://vimawesome.com/" target="_blank" rel="noopener">Vim Awesome</a></p>
+
+      
+      <!-- 打赏 -->
+      
+        <div id="reward-btn">
+          打赏
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jokerpy.top/2019/12/30/vim/" data-id="ckk3waasf0007a6ne546hcptb"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vundle/" rel="tag">Vundle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/04/13/python-path/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            如何python中合理的跨文件使用相对路径
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/12/27/git-get-ready-to-use-it/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Git get-ready-to-use-it</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2021
+        Nikola Gao
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/joker.png" alt="Jokerpy"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>

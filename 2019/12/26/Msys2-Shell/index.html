@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    利用Msys2定制出Windows平台上Linux的shell方案 |  Jokerpy
+  </title>
+  
+  <link rel="shortcut icon" href="/joker.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b8291c3f356358bb1c0ca39cae241baf";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Msys2-Shell" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  利用Msys2定制出Windows平台上Linux的shell方案
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/26/Msys2-Shell/" class="article-date">
+  <time datetime="2019-12-26T21:46:49.000Z" itemprop="datePublished">2019-12-26</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="/images/Msys2-Shell.png" alt=""></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有那么一些程序员，喜欢Linux的shell，同时也很喜欢Windows的环境，<br>（或者说平时习惯了在Windows上的软件，但是写代码的时候却偏偏钟情于Linux，或者不得不用Linux）<br>那么我这里就为你提供了一个定制方案。（本人没怎么使用过Mac，暂且略过）</p>
+<p>简单概括本文介绍了如何在Windows平台与Windows编程环境（本文以Python和nodejs为例）搭建一个几乎和Linux环境一样的shell，用作开发。这个桥梁就是<a href="http://www.Msys2.org/" target="_blank" rel="noopener">Msys2</a>，本文就是如何巧妙的运用Msys2构建开发环境。从用户角度看更接近一个Linux开发环境，却可以使用很多原本习惯的Windows软件。</p>
+<a id="more"></a>
+
+<h2 id="类似的解决方案"><a href="#类似的解决方案" class="headerlink" title="类似的解决方案"></a>类似的解决方案</h2><p>说一说背景，同时能够满足Linux和Windows的类似方案有以下几种：</p>
+<blockquote>
+<ol>
+<li>图形化的Linux。不得不说近些年Linux发展已经可以在PC上安装一个gnome或者KDE，普通的多媒体功能都是轻轻松松，尤其像Ubuntu可以说是开箱即用，当然如果想在这里玩个Windows大型游戏可以绕路了，有没有软件全看有没有Linux版本了。（完美Linux，勉强照顾Windows）</li>
+<li>用虚拟机。Windows/Linux + vbox/vmware， 虚拟机真是的好东西，优点几乎完美的兼容两个环境， 缺点需要设计两套系统的数据交互，还有就是太占资源，如果恰好还是那种图像或者数据，需要吃硬件的，这个方法基本就不要想了，双倍的东西。（原生系统满分，勉强照顾虚拟机环境）</li>
+<li>Linux环境中装Windows的运行环境，比如wine，是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，Mac OSX 及 BSD 等）上运行 Windows 应用的兼容层。 我个人使用的感觉是兼容性有点呵呵，Windows这个变化的速度，这个兼容性稳定性不敢恭维。（原生系统给你满分，Windows拼人品）。</li>
+<li>Windows环境中装Linux的运行环境，MinGW &amp; Cygwin， 和上面一个类似，不过呢好在Linux的兼容层稳定一些，使用感觉也是一般，大的程序还是困难。</li>
+</ol>
+</blockquote>
+<p>注意我要说的第五种方案来了，就是<a href="https://github.com/silkeh/latex-sourcecodepro" target="_blank" rel="noopener">Msys2</a>，他其实是一个 Windows平台上的 MinGW Cygwin pacman 融合到了一起的产物，好处就是他真的提供了一个比较舒服的 POSIX-compliant 操作系统，包管理使用的是pacman，内置了大部分常用的shell命令（例如 wget expect tcl cat grep vim-huge ），但是他存在一个问题，就是有一些程序需要调用的Windows环境，还是不能很好地运行，这个时候关键的地方来了，要是能干脆抛开Msys2的环境直接使用Windows版本的软件，只是将Msys2的Shell作为入口呢？对哦，可以的。（cmd能做到的，我都能做到，而且更像Linux）</p>
+<p>没错！从头到尾，我定制的底层都是在Windows上，但是开发过程由于针对Python这类脚本语言，很多交互都限于Msys2的shell和python之间，所以几乎可以模拟出Linux的感觉。对于移植到服务器上更为贴近。</p>
+<h2 id="定制"><a href="#定制" class="headerlink" title="定制"></a>定制</h2><p>接下来就是具体的定制步骤，当然了开箱即用也是绝美的，就可以轻松运行Windows程序，我只是定制的更适合。</p>
+<blockquote>
+<p>tutorial 请从官网下载Msys2，尝试运行一下 /c/Windows/System32/notepad.exe , 如果也已经换新鼓舞，我想你已经懂我的意思了。直接让Bash调用Windows的python程序就可以了，但是也有一些小技巧要注意，下文其实大部分都是我的定制过程。</p>
+</blockquote>
+<h3 id="特别提醒"><a href="#特别提醒" class="headerlink" title="特别提醒"></a>特别提醒</h3><p>Msys2中运行某些CLI交互的Windows版本程序，需要使用<code>winpty</code>，例如 <code>winpty python</code>，否则命令行显示字符有问题。</p>
+<h3 id="下载软件"><a href="#下载软件" class="headerlink" title="下载软件"></a>下载软件</h3><p>为了方便介绍，我这里将Python和nodejs还有Visual studio code一并下载下来。<br>对于python我用的winpython，因为安装方便，官网的应该也是可以，需要你尝试一下。<br>官网下载 Msys2  <code>http://www.Msys2.org/</code><br>Python的发行版，WinPython下载  <code>http://winpython.github.io/</code><br>官网下载 nodejs <code>https://nodejs.org/en/</code><br>官网下载 Visual Studio Code  <code>https://code.visualstudio.com/</code></p>
+<h3 id="解压软件"><a href="#解压软件" class="headerlink" title="解压软件"></a>解压软件</h3><p>Visual Studio Code 安装随意，我只是喜欢这个编辑器。下文经常编辑文件可以用这个。<br>编辑的文件目录，如果是 / 开头表示的是Linux的地址，也就是Msys的相对地址，<br>例如  <code>/etc/profile.d/lang.sh</code>  表示的是   <code>D:\Software\Msys2\etc\profile.d\lang.sh</code></p>
+<p>Msys2 Python nodejs 软件<br>请务必解压到“英文前缀，不包含空格或者中文，字符较短”的目录中。例如</p>
+<pre><code>D:\Software\Msys2
+D:\Software\Python
+D:\Software\nodejs</code></pre><h3 id="更改Msys2的源"><a href="#更改Msys2的源" class="headerlink" title="更改Msys2的源"></a>更改Msys2的源</h3><p>原始Msys2用的源比较慢，这里推荐一个快一些的，更新这几个文件的内容即可。</p>
+<pre><code>/etc/pacman.d/mirrorlist.mingw32
+Server = http://mirrors.ustc.edu.cn/Msys2/mingw/i686/
+
+/etc/pacman.d/mirrorlist.mingw64
+Server = http://mirrors.ustc.edu.cn/Msys2/mingw/x86_64/
+
+/etc/pacman.d/mirrorlist.Msys
+Server = http://mirrors.ustc.edu.cn/Msys2/Msys/$arch</code></pre><h3 id="更新语言"><a href="#更新语言" class="headerlink" title="更新语言"></a>更新语言</h3><p>我这里通过更改minttyrc引入英文配置，暂时不需要更改lang.sh，此步骤可以略过，详见下文minttyrc部分，功能同Locale=C。</p>
+<pre><code>不清楚的原因，有些软件可能出现乱码，请删除这个从环境变量中过去语言的选项。
+即删除这个文件中的这一行。
+    configure /etc/profile.d/lang.sh
+    # test -z &quot;${LC_ALL:-${LC_CTYPE:-$LANG}}&quot; &amp;&amp; export LANG=&quot;&quot;</code></pre><h3 id="安装一些必要的软件包"><a href="#安装一些必要的软件包" class="headerlink" title="安装一些必要的软件包"></a>安装一些必要的软件包</h3><p>按照我个人的习惯我安装了一下几个。<br>注意 <code>winpty</code> 能够解决很多显示不正常的情况。</p>
+<pre><code>pacman -S vim
+pacman -S zsh
+pacman -S p7zip
+pacman -S rsync
+pacman -S git
+pacman -S winpty
+
+ln -s /bin/vim.exe /bin/vi  # 给vim做个软链接</code></pre><h3 id="配置主目录"><a href="#配置主目录" class="headerlink" title="配置主目录"></a>配置主目录</h3><p>也是根据我的喜好定制了这个，/etc/nsswitch.conf</p>
+<pre><code># Begin /etc/nsswitch.conf
+
+passwd: files db
+group: files db
+
+db_enum: cache builtin
+
+db_home: /root
+db_shell: /usr/bin/bash
+db_gecos: cygwin desc
+
+# End /etc/nsswitch.conf</code></pre><p>这一步完成后请重启Msys2</p>
+<h3 id="安装oh-my-zsh-并启用-zsh"><a href="#安装oh-my-zsh-并启用-zsh" class="headerlink" title="安装oh-my-zsh 并启用 zsh"></a>安装oh-my-zsh 并启用 zsh</h3><p>不要问我为什么，这个东西太好用了，执行</p>
+<pre><code>sh -c &quot;$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)&quot;</code></pre><p>再次编辑一下 /etc/nsswitch.conf ， 启用zsh</p>
+<pre><code># Begin /etc/nsswitch.conf
+
+passwd: files db
+group: files db
+
+db_enum: cache builtin
+
+db_home: /root
+db_shell: /usr/bin/zsh
+db_gecos: cygwin desc
+
+# End /etc/nsswitch.conf</code></pre><p>这一步完成后请重启Msys2, 注意上面三步顺序，更改 db_home =&gt; 安装 oh-my-zsh =&gt; 更改 db_shell</p>
+<h3 id="定制Msys2-字体和背景色"><a href="#定制Msys2-字体和背景色" class="headerlink" title="定制Msys2 字体和背景色"></a>定制Msys2 字体和背景色</h3><p>安装个我喜欢的字体，<a href="https://github.com/silkeh/latex-sourcecodepro" target="_blank" rel="noopener">Source Code Pro Semibold</a><br>配置文件 ~/.minttyrc，<br>（如果上文定制了db_home，则是root下的，如果没有定制root，则可能是Windows用户目录下）</p>
+<p>BoldAsFont=-1<br>CursorType=block<br>Font=Source Code Pro Semibold<br>FontHeight=12<br>FontWeight=600<br>Scrollbar=none<br>Columns=100<br>Rows=35<br>Locale=C<br>Charset=UTF-8</p>
+<p>ForegroundColour=235, 219, 178<br>BackgroundColour=  0,  43,  54<br>CursorColour=     65, 255,  65</p>
+<h3 id="定制编程链"><a href="#定制编程链" class="headerlink" title="定制编程链"></a>定制编程链</h3><p>如果没有这一步，前面都是假把式，毕竟我是为了编程才引入的Msys2.<br>其实很简单的，就是把Python的脚本目录加入到环境变量中就可以了，但是需要winpty作为前缀。<br>所以我这里写了一个Shell的函数供大家使用。<br>请把这几行加入到你的  .bashrc 或者 .zshrc 中。</p>
+<pre><code># Python
+PATH_python=/d/Portable/Python/python-3.7.4.amd64
+PATH=${PATH_python}:${PATH_python}/Scripts:$PATH
+
+# Node.js
+PATH_node=/d/Portable/nodejs
+PATH=${PATH_node}:$PATH
+
+# alias
+alias @@=&quot;winpty&quot;
+alias python=&quot;winpty ipython&quot;
+alias npm=&quot;winpty npm.cmd&quot;</code></pre><p>使用python 执行脚本（我个人用ipython代替了python）：</p>
+<pre><code>bash# python
+bash# pip install</code></pre><p>使用nodejs 执行脚本，因为已经在系统变量中，所以锁心所欲啦。</p>
+<pre><code>bash# node --verison</code></pre><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>最后，有人可能会问这不是多此一举么，都在Windows上还要绕一下Linux干啥，其实你仔细品，对开发而言，入口是shell，编程环境是python，在不关心底层实现的情况下，这样开发过程更接近Linux，对于提高Linux才做也是一个帮助，同时有一些Windows的编辑器（墙裂推荐visual studio code）真的是提高开发效率。</p>
+<p>我之所以这么用，是因为工作中需要使用expect，这个是只有Linux版本，Windows没有，但是恰巧的是在构建的Msys这个虚拟的Linux中，有expect就很好地满足了要求。</p>
+<p>最后的最后，如果你觉得定制步骤太麻烦，也可以打赏我，后台留言你的邮箱，一步到位这个定制好的Msys2压缩包。</p>
+
+      
+      <!-- 打赏 -->
+      
+        <div id="reward-btn">
+          打赏
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jokerpy.top/2019/12/26/Msys2-Shell/" data-id="ckk3waas80002a6ne9q9v6bbl"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Msys2/" rel="tag">Msys2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/12/27/git-get-ready-to-use-it/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Git get-ready-to-use-it
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2021
+        Nikola Gao
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/joker.png" alt="Jokerpy"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  
+  
+  </div>
+</body>
+
+</html>

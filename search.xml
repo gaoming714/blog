@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>妙蛙图鉴 Bizarre Handbook</title>
+    <url>/2020/06/22/Bizarre-Handbook/</url>
+    <content><![CDATA[<p><img src="/images/Bizarre.jpg" alt=""></p>
+<h2 id="Zen，公理"><a href="#Zen，公理" class="headerlink" title="Zen，公理"></a>Zen，公理</h2><ol>
+<li>核心思想，未来现金流折现。不要尝试去精确计算。</li>
+<li>股票的基础层是所有者权益。即企业资产扣除负债后，由所有者享有的剩余权益。</li>
+<li>股票的中间层是无风险利率。可以暂时理解为大盘分位。</li>
+<li>股票的表象层是资金的炒作。最容易影响股价，也需要付出巨大的成本。</li>
+<li>卖的是过去，买的是未来。依据的永远是历史，未来的不确定蕴含着机会。</li>
+<li>概率，也就是仓位，代表的对于某个事件的信念。</li>
+<li>享受泡沫，理解反身性。认知可以改变事件，事件反过来又改变认知。</li>
+<li>不参与财务诡计。只是努力不和那些坏孩子上市公司一起玩耍。</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="财务"><a href="#财务" class="headerlink" title="财务"></a>财务</h2><p>不同行业的公司内在价值不同，经营方式不同，没有可比性。我只关注看得懂的，并且有足够护城河的上市公司。</p>
+<p>对于一个经营稳定的上市公司，尤其是所谓的白马股来说，净资产收益率是最重要的指标，无出其右，这就是我认为公司估值的锚。净资产收益率的高低应该显著的决定了市盈率的高的。</p>
+<p>其次，一个公司的成长（营业收入同比增长）关系到他的未来，也是很值得思考的，我认为成长更像是一个股票波动的反映，是资本对于未来不确定的博弈的结果，统计后他们似乎存在这样的关系。</p>
+<p><img src="/images/Bizarre2.jpg" alt=""></p>
+<p>对于这个公式的后部分我个人称为ROE乘数。一倍的ROE乘数可以认为是下限，如果乘以两个ROE乘数，我个人认为可以称为估值的上限。期待的市盈率应该匹配净资产收益率和成长拟合出的数值。</p>
+<p>高增长是加分项，低增长是减分项，当遇到减分的时候似乎应该对估值做一个打对折的处理。再次重申，这个不是放任四海而皆准的，对于大部分的行业其实都不适用，只对于一些稳定收益的白马有效。</p>
+<h2 id="资金"><a href="#资金" class="headerlink" title="资金"></a>资金</h2><p>首先这不是一个科学，不可能精确判断期待估值是不是能够到达，什么时候到达，并且公司的财务数据是滞后于公司经营的，公司的业务也是在变化的，还有很大成分是对于公司未来的期待，那么就需要随时为自己留一个后手，通过控制资金来保证不会被市场洗掉。</p>
+<p>资金的管理方法有很多种，我建议采用估值的上下限，估值达到上限，持有1份仓位，赚的是公司净资产收益率的钱，当估值达到下限，持有2分仓位，额外赚取低估的钱。特别要注意，估值达到上下限时可能是公司的估值也在升高或者降低，相当于公司的经营发生了变化。</p>
+<p>未来现金流折现是投资人的一种思维方式，是不要真正去算的</p>
+<p>选公司，确定合理的估值区间，选择资金管理方法，比如凯利公式。那是下一个内容。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>利用Msys2定制出Windows平台上Linux的shell方案</title>
+    <url>/2019/12/26/Msys2-Shell/</url>
+    <content><![CDATA[<p><img src="/images/Msys2-Shell.png" alt=""></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有那么一些程序员，喜欢Linux的shell，同时也很喜欢Windows的环境，<br>（或者说平时习惯了在Windows上的软件，但是写代码的时候却偏偏钟情于Linux，或者不得不用Linux）<br>那么我这里就为你提供了一个定制方案。（本人没怎么使用过Mac，暂且略过）</p>
+<p>简单概括本文介绍了如何在Windows平台与Windows编程环境（本文以Python和nodejs为例）搭建一个几乎和Linux环境一样的shell，用作开发。这个桥梁就是<a href="http://www.Msys2.org/" target="_blank" rel="noopener">Msys2</a>，本文就是如何巧妙的运用Msys2构建开发环境。从用户角度看更接近一个Linux开发环境，却可以使用很多原本习惯的Windows软件。</p>
+<a id="more"></a>
+
+<h2 id="类似的解决方案"><a href="#类似的解决方案" class="headerlink" title="类似的解决方案"></a>类似的解决方案</h2><p>说一说背景，同时能够满足Linux和Windows的类似方案有以下几种：</p>
+<blockquote>
+<ol>
+<li>图形化的Linux。不得不说近些年Linux发展已经可以在PC上安装一个gnome或者KDE，普通的多媒体功能都是轻轻松松，尤其像Ubuntu可以说是开箱即用，当然如果想在这里玩个Windows大型游戏可以绕路了，有没有软件全看有没有Linux版本了。（完美Linux，勉强照顾Windows）</li>
+<li>用虚拟机。Windows/Linux + vbox/vmware， 虚拟机真是的好东西，优点几乎完美的兼容两个环境， 缺点需要设计两套系统的数据交互，还有就是太占资源，如果恰好还是那种图像或者数据，需要吃硬件的，这个方法基本就不要想了，双倍的东西。（原生系统满分，勉强照顾虚拟机环境）</li>
+<li>Linux环境中装Windows的运行环境，比如wine，是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，Mac OSX 及 BSD 等）上运行 Windows 应用的兼容层。 我个人使用的感觉是兼容性有点呵呵，Windows这个变化的速度，这个兼容性稳定性不敢恭维。（原生系统给你满分，Windows拼人品）。</li>
+<li>Windows环境中装Linux的运行环境，MinGW &amp; Cygwin， 和上面一个类似，不过呢好在Linux的兼容层稳定一些，使用感觉也是一般，大的程序还是困难。</li>
+</ol>
+</blockquote>
+<p>注意我要说的第五种方案来了，就是<a href="https://github.com/silkeh/latex-sourcecodepro" target="_blank" rel="noopener">Msys2</a>，他其实是一个 Windows平台上的 MinGW Cygwin pacman 融合到了一起的产物，好处就是他真的提供了一个比较舒服的 POSIX-compliant 操作系统，包管理使用的是pacman，内置了大部分常用的shell命令（例如 wget expect tcl cat grep vim-huge ），但是他存在一个问题，就是有一些程序需要调用的Windows环境，还是不能很好地运行，这个时候关键的地方来了，要是能干脆抛开Msys2的环境直接使用Windows版本的软件，只是将Msys2的Shell作为入口呢？对哦，可以的。（cmd能做到的，我都能做到，而且更像Linux）</p>
+<p>没错！从头到尾，我定制的底层都是在Windows上，但是开发过程由于针对Python这类脚本语言，很多交互都限于Msys2的shell和python之间，所以几乎可以模拟出Linux的感觉。对于移植到服务器上更为贴近。</p>
+<h2 id="定制"><a href="#定制" class="headerlink" title="定制"></a>定制</h2><p>接下来就是具体的定制步骤，当然了开箱即用也是绝美的，就可以轻松运行Windows程序，我只是定制的更适合。</p>
+<blockquote>
+<p>tutorial 请从官网下载Msys2，尝试运行一下 /c/Windows/System32/notepad.exe , 如果也已经换新鼓舞，我想你已经懂我的意思了。直接让Bash调用Windows的python程序就可以了，但是也有一些小技巧要注意，下文其实大部分都是我的定制过程。</p>
+</blockquote>
+<h3 id="特别提醒"><a href="#特别提醒" class="headerlink" title="特别提醒"></a>特别提醒</h3><p>Msys2中运行某些CLI交互的Windows版本程序，需要使用<code>winpty</code>，例如 <code>winpty python</code>，否则命令行显示字符有问题。</p>
+<h3 id="下载软件"><a href="#下载软件" class="headerlink" title="下载软件"></a>下载软件</h3><p>为了方便介绍，我这里将Python和nodejs还有Visual studio code一并下载下来。<br>对于python我用的winpython，因为安装方便，官网的应该也是可以，需要你尝试一下。<br>官网下载 Msys2  <code>http://www.Msys2.org/</code><br>Python的发行版，WinPython下载  <code>http://winpython.github.io/</code><br>官网下载 nodejs <code>https://nodejs.org/en/</code><br>官网下载 Visual Studio Code  <code>https://code.visualstudio.com/</code></p>
+<h3 id="解压软件"><a href="#解压软件" class="headerlink" title="解压软件"></a>解压软件</h3><p>Visual Studio Code 安装随意，我只是喜欢这个编辑器。下文经常编辑文件可以用这个。<br>编辑的文件目录，如果是 / 开头表示的是Linux的地址，也就是Msys的相对地址，<br>例如  <code>/etc/profile.d/lang.sh</code>  表示的是   <code>D:\Software\Msys2\etc\profile.d\lang.sh</code></p>
+<p>Msys2 Python nodejs 软件<br>请务必解压到“英文前缀，不包含空格或者中文，字符较短”的目录中。例如</p>
+<pre><code>D:\Software\Msys2
+D:\Software\Python
+D:\Software\nodejs</code></pre><h3 id="更改Msys2的源"><a href="#更改Msys2的源" class="headerlink" title="更改Msys2的源"></a>更改Msys2的源</h3><p>原始Msys2用的源比较慢，这里推荐一个快一些的，更新这几个文件的内容即可。</p>
+<pre><code>/etc/pacman.d/mirrorlist.mingw32
+Server = http://mirrors.ustc.edu.cn/Msys2/mingw/i686/
+
+/etc/pacman.d/mirrorlist.mingw64
+Server = http://mirrors.ustc.edu.cn/Msys2/mingw/x86_64/
+
+/etc/pacman.d/mirrorlist.Msys
+Server = http://mirrors.ustc.edu.cn/Msys2/Msys/$arch</code></pre><h3 id="更新语言"><a href="#更新语言" class="headerlink" title="更新语言"></a>更新语言</h3><p>我这里通过更改minttyrc引入英文配置，暂时不需要更改lang.sh，此步骤可以略过，详见下文minttyrc部分，功能同Locale=C。</p>
+<pre><code>不清楚的原因，有些软件可能出现乱码，请删除这个从环境变量中过去语言的选项。
+即删除这个文件中的这一行。
+    configure /etc/profile.d/lang.sh
+    # test -z &quot;${LC_ALL:-${LC_CTYPE:-$LANG}}&quot; &amp;&amp; export LANG=&quot;&quot;</code></pre><h3 id="安装一些必要的软件包"><a href="#安装一些必要的软件包" class="headerlink" title="安装一些必要的软件包"></a>安装一些必要的软件包</h3><p>按照我个人的习惯我安装了一下几个。<br>注意 <code>winpty</code> 能够解决很多显示不正常的情况。</p>
+<pre><code>pacman -S vim
+pacman -S zsh
+pacman -S p7zip
+pacman -S rsync
+pacman -S git
+pacman -S winpty
+
+ln -s /bin/vim.exe /bin/vi  # 给vim做个软链接</code></pre><h3 id="配置主目录"><a href="#配置主目录" class="headerlink" title="配置主目录"></a>配置主目录</h3><p>也是根据我的喜好定制了这个，/etc/nsswitch.conf</p>
+<pre><code># Begin /etc/nsswitch.conf
+
+passwd: files db
+group: files db
+
+db_enum: cache builtin
+
+db_home: /root
+db_shell: /usr/bin/bash
+db_gecos: cygwin desc
+
+# End /etc/nsswitch.conf</code></pre><p>这一步完成后请重启Msys2</p>
+<h3 id="安装oh-my-zsh-并启用-zsh"><a href="#安装oh-my-zsh-并启用-zsh" class="headerlink" title="安装oh-my-zsh 并启用 zsh"></a>安装oh-my-zsh 并启用 zsh</h3><p>不要问我为什么，这个东西太好用了，执行</p>
+<pre><code>sh -c &quot;$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)&quot;</code></pre><p>再次编辑一下 /etc/nsswitch.conf ， 启用zsh</p>
+<pre><code># Begin /etc/nsswitch.conf
+
+passwd: files db
+group: files db
+
+db_enum: cache builtin
+
+db_home: /root
+db_shell: /usr/bin/zsh
+db_gecos: cygwin desc
+
+# End /etc/nsswitch.conf</code></pre><p>这一步完成后请重启Msys2, 注意上面三步顺序，更改 db_home =&gt; 安装 oh-my-zsh =&gt; 更改 db_shell</p>
+<h3 id="定制Msys2-字体和背景色"><a href="#定制Msys2-字体和背景色" class="headerlink" title="定制Msys2 字体和背景色"></a>定制Msys2 字体和背景色</h3><p>安装个我喜欢的字体，<a href="https://github.com/silkeh/latex-sourcecodepro" target="_blank" rel="noopener">Source Code Pro Semibold</a><br>配置文件 ~/.minttyrc，<br>（如果上文定制了db_home，则是root下的，如果没有定制root，则可能是Windows用户目录下）</p>
+<p>BoldAsFont=-1<br>CursorType=block<br>Font=Source Code Pro Semibold<br>FontHeight=12<br>FontWeight=600<br>Scrollbar=none<br>Columns=100<br>Rows=35<br>Locale=C<br>Charset=UTF-8</p>
+<p>ForegroundColour=235, 219, 178<br>BackgroundColour=  0,  43,  54<br>CursorColour=     65, 255,  65</p>
+<h3 id="定制编程链"><a href="#定制编程链" class="headerlink" title="定制编程链"></a>定制编程链</h3><p>如果没有这一步，前面都是假把式，毕竟我是为了编程才引入的Msys2.<br>其实很简单的，就是把Python的脚本目录加入到环境变量中就可以了，但是需要winpty作为前缀。<br>所以我这里写了一个Shell的函数供大家使用。<br>请把这几行加入到你的  .bashrc 或者 .zshrc 中。</p>
+<pre><code># Python
+PATH_python=/d/Portable/Python/python-3.7.4.amd64
+PATH=${PATH_python}:${PATH_python}/Scripts:$PATH
+
+# Node.js
+PATH_node=/d/Portable/nodejs
+PATH=${PATH_node}:$PATH
+
+# alias
+alias @@=&quot;winpty&quot;
+alias python=&quot;winpty ipython&quot;
+alias npm=&quot;winpty npm.cmd&quot;</code></pre><p>使用python 执行脚本（我个人用ipython代替了python）：</p>
+<pre><code>bash# python
+bash# pip install</code></pre><p>使用nodejs 执行脚本，因为已经在系统变量中，所以锁心所欲啦。</p>
+<pre><code>bash# node --verison</code></pre><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>最后，有人可能会问这不是多此一举么，都在Windows上还要绕一下Linux干啥，其实你仔细品，对开发而言，入口是shell，编程环境是python，在不关心底层实现的情况下，这样开发过程更接近Linux，对于提高Linux才做也是一个帮助，同时有一些Windows的编辑器（墙裂推荐visual studio code）真的是提高开发效率。</p>
+<p>我之所以这么用，是因为工作中需要使用expect，这个是只有Linux版本，Windows没有，但是恰巧的是在构建的Msys这个虚拟的Linux中，有expect就很好地满足了要求。</p>
+<p>最后的最后，如果你觉得定制步骤太麻烦，也可以打赏我，后台留言你的邮箱，一步到位这个定制好的Msys2压缩包。</p>
+]]></content>
+      <tags>
+        <tag>Msys2</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git get-ready-to-use-it</title>
+    <url>/2019/12/27/git-get-ready-to-use-it/</url>
+    <content><![CDATA[<p><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-5-638.jpg" alt=""></p>
+<h2 id="可能是最精简的一个git学习途径"><a href="#可能是最精简的一个git学习途径" class="headerlink" title="可能是最精简的一个git学习途径"></a>可能是最精简的一个git学习途径</h2><blockquote>
+<p><a href="https://www.slideshare.net/origamiaddict/git-get-ready-to-use-it" target="_blank" rel="noopener">原始地址（请翻墙）</a></p>
+</blockquote>
+<a id="more"></a>
+
+<p><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-1-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-2-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-3-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-4-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-5-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-6-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-7-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-8-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-9-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-10-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-11-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-12-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-13-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-14-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-15-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-16-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-17-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-18-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-19-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-20-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-21-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-22-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-23-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-24-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-25-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-26-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-27-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-28-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-29-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-30-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-31-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-32-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-33-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-34-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-35-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-36-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-37-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-38-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-39-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-40-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-41-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-42-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-43-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-44-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-45-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-46-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-47-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-48-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-49-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-50-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-51-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-52-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-53-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-54-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-55-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-56-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-57-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-58-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-59-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-60-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-61-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-62-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-63-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-64-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-65-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-66-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-67-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-68-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-69-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-70-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-71-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-72-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-73-638.jpg" alt=""><br><img src="/images/git-get-ready-to-use-it/git-get-ready-to-use-it-74-638.jpg" alt=""></p>
+]]></content>
+      <tags>
+        <tag>git</tag>
+        <tag>Anakin</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>妙蛙图鉴之我的股市认知</title>
+    <url>/2020/12/08/my-point-of-view/</url>
+    <content><![CDATA[<p><img src="/images/Bizarremyview.png" alt=""></p>
+<p>股票市场是一个玄之又玄的东西，我斗胆在这里讲述一下我对于股票市场的认知和炒股的方法，虽然这个方法不一定对，但是这几年我用这个方法赚了不少钱，独乐乐不如众乐乐，那么接下来我们开始。</p>
+<a id="more"></a>
+
+<p>我认为，股票市场的影响因素分为三大方面，企业增长（妙蛙种子），债务周期（杰尼龟），资本偏好（小火龙）。三者相互交织，相互影响，如同保罗克鲁格曼的“不可能三角”理论一样，三者的稳定不能同时出现。（这个理论，原来指的是资本自由流动、货币政策的独立性和汇率的稳定性，三者不可能同时出现。）</p>
+<hr>
+<h2 id="企业增长。"><a href="#企业增长。" class="headerlink" title="企业增长。"></a>企业增长。</h2><p>我们先思考第一个基本的问题，究竟是什么直接决定了股票价格，是企业发展的传感器吗，是经济的晴雨表吗？最直接的就是实时的那一笔买方和卖方的成交价格，这毋庸置疑，不必关心什么理论什么K线，只要肯掏出来真金白银，这个价格就是金主来决定，但是话说回来股票是不是被操纵着，这要看你怎么定义操纵了，我们是社会主义，我们不允许恶意操纵股票，其次真金白银都花了让股票价格陪个笑脸好像也没什么不妥吧，你若有这个实力，你也可以试试，拿不出这么多真金白银，就不要在这里酸了。资金就像是弹药，无尽的弹药就像是游戏中的氪金玩家一样合理开挂。</p>
+<p>股票终究是一种有价证券，它可以作为买卖对象和抵押品，是资金市场主要的长期信用工具之一。股票的锚还是企业本身。简单理解购买了股票就拥有了相应的股东权益，即除去负债后由股东享有的剩余权益，如果我们单纯考虑这个因素的话，公司经营的经营与股东权成正相关，一个优秀的公司是源源不断的创造价值，为公司赚钱，股票价格的锚也就随之升高。优秀的公司应该是一个做好生意的，包括商业模式、竞争力、护城河、看得懂四个方面，这还可以再详细讲一期，我们一言以蔽之，优秀的公司就是很赚钱。</p>
+<h2 id="债务周期。"><a href="#债务周期。" class="headerlink" title="债务周期。"></a>债务周期。</h2><p>金融市场中资金变化的作用就像一个蓄水池蓄水和放水，经济在泡沫与去杠杆的循环往复中前行。企业作为经济环境中的一员必然会受到经济大环境的影响，单纯研究企业的增长往往是不够的，企业增长变化缓慢，债务周期往往在泡沫中将股价推向天花板，又在去杠杆中将股价压倒脚底板。泡沫破裂，大浪面前似乎谁都可以是股神，大浪褪去才知道究竟谁不是在裸泳，聪明的人总是在悄悄地抢持带血的筹码。</p>
+<p>我虽然没有对于这个有定量和极致的分析，但是对于定性的分析让我躲避了部分的风险。之所以叫债务周期，我这里并非严格区别于经济周期或者市场周期，意在表达资金在不同的大类资产中周期性变化，股市可以受到宏观经济的调整，要知道我国的股市不是赌场，是为改革开放发展提供支持的市场，赌博只是不得不加入其中的副产品而已，要道路正确才能赚到时代红利。随着经济全球化，汇率的周期变化其实也在影响着市场资金，也往往叫汇率牛市。</p>
+<h2 id="资本偏好。"><a href="#资本偏好。" class="headerlink" title="资本偏好。"></a>资本偏好。</h2><p>股票市场并非严格确定的，更多的不确定和风险，才给了企业讲故事的机会，也给了投资者想象空间。凯恩斯描述过股市就像一场选美，审美随着时间地点参与者消息不断地变化，审美的变化产生了资金对于某一个标的追逐的变化，记得最终决定的还是资金，有钱难买爷开心嘛。喜欢就买它买它买它，谁也拦不住的。我个人认为这是最难的，也是我的体系中最不确定的一部分。我个人是放逐这一部分利润，任资本偏好随他而去。因为我相信价格总会回到价值附近，只是时间问题。</p>
+<p>安静一下重点来了，我认为所谓价值并非一个固定的值，价值更多的是某一个计算模型的体现，或者更直接一些，信念使然。有交易发生就是一对人有不同的信念，不同的估计，不同的价值判断。有了某种方法估计股票的价值固然很好，切近想当然，未来是不确定的，除非你愿意掏钱，否则股票的价格不会按照任何人的思路上上下下。将资金偏好理解为随机波动也未尝不可，只是这个幅度和长度有时可能也比较惊人。</p>
+<hr>
+<p>总结一下前面三大部分，挑选出市场的赚钱的优秀企业，不要靠想象和新闻，要回归到实实在在的真金白银，每年稳定的赚取企业净资产收益率的钱，调整仓位适应如同海浪一样的债务周期，时刻要承担资本偏好的波动。</p>
+<p><img src="/images/ToBeContinued.png" alt=""></p>
+<hr>
+<p>无比宽广的宇宙的某处<br>还存在着另一个我吧喵~<br>相同的夜里草丛中<br>噗噜噗噜<del>呲啦哩啦</del><br>在弹着吉他吗喵~<br>在唱着喵喵的歌吗喵~<br>独自一人是这么的苦闷<br>这么的<del>这么的苦闷<br>此时此刻 大家在做着什么呢喵</del><br>此时此刻 大家在做着什么呢喵~<br>突然想给某个人打个电话了呢喵~</p>
+]]></content>
+      <tags>
+        <tag>stock</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何python中合理的跨文件使用相对路径</title>
+    <url>/2020/04/13/python-path/</url>
+    <content><![CDATA[<p><img src="/images/python_path.jpg" alt="python_path"></p>
+<p>python 在package/module引用过程是很轻松的访问模块，同级目录import了解一下，总是OK的，就算不懂相对路径基本也不会有问题，但是有的时候引用了其他目录（尤其是非子目录），就会发现引用的module失败，这里就涉及到相对引用和绝对引用。</p>
+<a id="more"></a>
+
+<h2 id="引用的基础知识"><a href="#引用的基础知识" class="headerlink" title="引用的基础知识"></a>引用的基础知识</h2><p><code>from .util import log</code></p>
+<p><code>import .abc</code></p>
+<p>是相对引用（开头带点的），<code>.</code>一个点指当前目录找，<code>..</code>两个点上一级目录，以此类推；</p>
+<p><code>from util import log</code> </p>
+<p><code>import abc</code>  </p>
+<p>是绝对引用（正常开头的），系统设定的包搜寻目录里找，即`sys.path</p>
+<p>因为PEP 328的规定，相对引用相对来说受限（ <code>__main__</code>不含有包的信息 ），所以我们不探讨import相对问题。</p>
+<p>并且，“当前路径” 代表的是被执行的脚本文件的所在路径，为了防止程序乱掉，所以我直接使用绝对引用介绍。</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>目录结构</p>
+<p><img src="/images/python_path_folder.png" alt="python_path"></p>
+<h2 id="相同目录情况"><a href="#相同目录情况" class="headerlink" title="相同目录情况"></a>相同目录情况</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Algo.py</span></span><br><span class="line"><span class="keyword">import</span> foo</span><br><span class="line"></span><br><span class="line">r = foo.function()</span><br><span class="line">print(r)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## foo.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function</span><span class="params">()</span>:</span></span><br><span class="line">    file = <span class="string">"../data/config.json"</span></span><br><span class="line">    <span class="keyword">return</span> os.path.exists(file)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  src python Algo.py</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>Algo.py 作为主程序调用了同目录的foo.py的函数，Algo 通过使用 相对路径 <code>import foo</code>合理。</p>
+<p>foo使用了相对路径也没有问题，因为Algo和foo有相同的目录，绝对路径和相对路径都一样。</p>
+<h2 id="不同目录情况"><a href="#不同目录情况" class="headerlink" title="不同目录情况"></a>不同目录情况</h2><p>其实，稍微大一些的程序，还是会用到调用一个不再统一目录的情况，比如Algo调用log内的函数。</p>
+<p>此时log内函数也可以暂时使用相对路径，Algo和log对应的父目录不同的特殊情况。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Algo.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line">sys.path.append(BASE_DIR)</span><br><span class="line"><span class="keyword">import</span> util.log <span class="keyword">as</span> log</span><br><span class="line"></span><br><span class="line">r = log.function()</span><br><span class="line">print(r)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## log.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function</span><span class="params">()</span>:</span></span><br><span class="line">    file = <span class="string">"../data/config.json"</span></span><br><span class="line">    <span class="keyword">return</span> os.path.exists(file)</span><br></pre></td></tr></table></figure>
+
+<p>方法是，将主程序Algo的环境中添加父目录，这样Algo就可以通过调用  util.log ,访问根目录下的子目录，这样需要注意每个文件的位置，保证他们向上都最终指向根目录<code>BASE_DIR</code>，注意log.py的所在目录必须有<code>__init__.py</code> 来说明这是一个模块。</p>
+<h2 id="被调用的module内部"><a href="#被调用的module内部" class="headerlink" title="被调用的module内部"></a>被调用的module内部</h2><p>被调用的module内部使用先对路径其实是不对的，因为</p>
+<p><strong>“当前路径” 代表的是被执行的脚本文件的所在路径，</strong></p>
+<p>所以在被调用的module内部应该最好不使用相对位置，而是使用绝对位置。</p>
+<p>这里我建议使用的是针对于根目录的相对位置。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line">sys.path.append(BASE_DIR)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">()</span>:</span></span><br><span class="line">   config_json = os.path.join(BASE_DIR,<span class="string">"data"</span>,<span class="string">"config.json"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>首先将环境变量增加根目录<code>BASE_DIR</code>,然后利用<code>os.path.join</code>拼出来所需要的绝对路径。这里要注意，不要使用字符串拼接，因为在不同操作系统中可能不兼容，推荐使用<code>os.path</code>。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本文，主要就是想说，在项目中尽量使用带有根目录作为基础的绝对路径，这样项目内的文件组织起来不容易错乱，否则经常会遇到找不到module，找不到file的问题。</p>
+<p>其次就是绝对路径的拼接要使用<code>os.path</code>,兼容多平台。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>scheme</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vim 炫酷定制计划</title>
+    <url>/2019/12/30/vim/</url>
+    <content><![CDATA[<p><img src="/images/vim-01.png" alt=""><br><img src="/images/vim-02.png" alt=""><br><img src="/images/vim-03.png" alt=""></p>
+<p>有小伙伴咨询为什么我的 VI 那么好看，其实就是一个主题和插件，并没什么高大上的，筛选适合自己的插件可能久一些，这里讲讲方法和我的定制步骤，欢迎继续吐槽我。</p>
+<blockquote>
+<ol>
+<li>安装插件管理器 Vundle</li>
+<li>插件 &amp; 使用技巧</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="安装插件管理器-Vundle"><a href="#安装插件管理器-Vundle" class="headerlink" title="安装插件管理器 Vundle"></a>安装插件管理器 Vundle</h2><p>要想让vim功能强大，插件是必不少的，安装插件方法有的很多，思路大体上都是复制插件到指定的目录(~/.vim/)。</p>
+<blockquote>
+<p>列出了一些安装插件的方法：<br>Vundle, NeoBundle, VimPlug, Pathogen<br>我只讲我认为最方便的Vundle，其他请自行百度。<br>Vundle的作用是帮助你把需要的插件安装到恰当的位置。</p>
+</blockquote>
+<p>利用git克隆项目，</p>
+<pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></pre><p>创建或者打开 <code>~/.vimrc</code>， 文件内粘贴以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set nocompatible              &quot; be iMproved, required</span><br><span class="line">filetype off                  &quot; required</span><br><span class="line"></span><br><span class="line">&quot; set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+&#x3D;~&#x2F;.vim&#x2F;bundle&#x2F;Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">&quot; alternatively, pass a path where Vundle should install plugins</span><br><span class="line">&quot;call vundle#begin(&#39;~&#x2F;some&#x2F;path&#x2F;here&#39;)</span><br><span class="line"></span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &#39;VundleVim&#x2F;Vundle.vim&#39;</span><br><span class="line">&quot; theme</span><br><span class="line">Plugin &#39;morhetz&#x2F;gruvbox&#39;</span><br><span class="line">Plugin &#39;vim-airline&#x2F;vim-airline&#39;</span><br><span class="line">Plugin &#39;vim-airline&#x2F;vim-airline-themes&#39;</span><br><span class="line">Plugin &#39;scrooloose&#x2F;nerdtree&#39;</span><br><span class="line">Plugin &#39;yggdroot&#x2F;indentline&#39;</span><br><span class="line">Plugin &#39;bronson&#x2F;vim-trailing-whitespace&#39;</span><br><span class="line">&quot; edit</span><br><span class="line">Plugin &#39;tpope&#x2F;vim-fugitive&#39;</span><br><span class="line">Plugin &#39;tpope&#x2F;vim-surround&#39;</span><br><span class="line">Plugin &#39;tpope&#x2F;vim-commentary&#39;</span><br><span class="line">Plugin &#39;junegunn&#x2F;gv.vim&#39;</span><br><span class="line">Plugin &#39;ervandew&#x2F;supertab&#39;</span><br><span class="line">Plugin &#39;godlygeek&#x2F;tabular&#39;</span><br><span class="line">Plugin &#39;mattn&#x2F;emmet-vim&#39;</span><br><span class="line">Plugin &#39;jiangmiao&#x2F;auto-pairs&#39;</span><br><span class="line"></span><br><span class="line">&quot; All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()            &quot; required</span><br><span class="line">filetype plugin indent on    &quot; required</span><br><span class="line">&quot; To ignore plugin indent changes, instead use:</span><br><span class="line">&quot;filetype plugin on</span><br><span class="line">&quot;</span><br><span class="line">&quot; Brief help</span><br><span class="line">&quot; :PluginList       - lists configured plugins</span><br><span class="line">&quot; :PluginInstall    - installs plugins; append &#96;!&#96; to update or just :PluginUpdate</span><br><span class="line">&quot; :PluginSearch foo - searches for foo; append &#96;!&#96; to refresh local cache</span><br><span class="line">&quot; :PluginClean      - confirms removal of unused plugins; append &#96;!&#96; to auto-approve removal</span><br><span class="line">&quot;</span><br><span class="line">&quot; see :h vundle for more details or wiki for FAQ</span><br><span class="line">&quot; Put your non-Plugin stuff after this line</span><br><span class="line"></span><br><span class="line">&quot; Basic settings</span><br><span class="line">set nu</span><br><span class="line">set expandtab</span><br><span class="line">set tabstop&#x3D;4</span><br><span class="line">set shiftwidth&#x3D;4</span><br><span class="line">set softtabstop&#x3D;4</span><br><span class="line">set shiftround</span><br><span class="line">set smartindent</span><br><span class="line">set cursorline</span><br><span class="line">set backspace&#x3D;indent,eol,start</span><br><span class="line"></span><br><span class="line">&quot; Theme</span><br><span class="line">set t_Co&#x3D;256</span><br><span class="line">set background&#x3D;dark</span><br><span class="line">syntax enable</span><br><span class="line">colorscheme gruvbox</span><br><span class="line"></span><br><span class="line">&quot; airline</span><br><span class="line">let g:airline_theme&#x3D;&quot;luna&quot;</span><br><span class="line">let g:airline_powerline_fonts &#x3D; 1</span><br><span class="line">let g:airline#extensions#tabline#enabled &#x3D; 1</span><br><span class="line">let g:airline#extensions#wordcount#filetypes &#x3D; 0</span><br><span class="line"></span><br><span class="line">&quot; Map</span><br><span class="line">let g:user_emmet_leader_key&#x3D;&#39;&lt;C-Y&gt;&#39;</span><br><span class="line">map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+
+<p>简单介绍一下，包含两部分，整体是vundle推荐模板，前一部分 （Basic settings 之前）是列出需要载入的插件，一部分是对插件的一些配置，也有我自己的个人偏好。<br>最后的Map是我自定义的快捷键。先copy上，看看效果。</p>
+<p>保存这个文件。打开 vim ，这个时候可能提示缺失一些东西，因为我们还没真正安装，直接回车进入。<br>输入 <code>:PluginInstall</code> 确认安装。等待，可能需要几分钟或者十几分钟。</p>
+<p>然后关闭vim后重新打开，世界如此美好。</p>
+<hr>
+<h2 id="插件-amp-使用技巧"><a href="#插件-amp-使用技巧" class="headerlink" title="插件 &amp; 使用技巧"></a>插件 &amp; 使用技巧</h2><h3 id="Vundle"><a href="#Vundle" class="headerlink" title="Vundle"></a>Vundle</h3><pre><code>Plugin &apos;VundleVim/Vundle.vim&apos;</code></pre><p>插件管理器本身，没啥讲的。</p>
+<hr>
+<h3 id="主题-amp-强大的Airline-amp-nerdtree"><a href="#主题-amp-强大的Airline-amp-nerdtree" class="headerlink" title="主题 &amp; 强大的Airline &amp; nerdtree"></a>主题 &amp; 强大的Airline &amp; nerdtree</h3><pre><code>Plugin &apos;morhetz/gruvbox&apos;
+Plugin &apos;vim-airline/vim-airline&apos;
+Plugin &apos;vim-airline/vim-airline-themes&apos;
+Plugin &apos;scrooloose/nerdtree&apos;
+Plugin &apos;bronson/vim-trailing-whitespace&apos;
+Plugin &apos;yggdroot/indentline&apos;</code></pre><p>打开后的最上面的缓存信息和下面两行的各种必要信息，可以说是几乎无所不包，重点是强大，并且好看。<br>有的下伙伴可能会遇到看不到都是方框，没有三角箭头的问题，具体我还需要定位问题所在，目前我知道 <code>let g:airline_powerline_fonts = 1</code> 这个会影响，原因我还不清楚。<br>nerdtree 的快捷键是 <C-n>, ctrl+n， 可以查看所在文件夹的文件，并且快速切换。<br>vim-trailing-whitespace， 结尾多空格会提示。<br>indentline， 缩进的时候有醒目一些的字符。</p>
+<hr>
+<h3 id="增强编辑"><a href="#增强编辑" class="headerlink" title="增强编辑"></a>增强编辑</h3><pre><code>Plugin &apos;tpope/vim-fugitive&apos;
+Plugin &apos;tpope/vim-surround&apos;
+Plugin &apos;tpope/vim-commentary&apos;
+Plugin &apos;junegunn/gv.vim&apos;
+Plugin &apos;ervandew/supertab&apos;
+Plugin &apos;godlygeek/tabular&apos;
+Plugin &apos;mattn/emmet-vim&apos;
+Plugin &apos;jiangmiao/auto-pairs&apos;</code></pre><p>这几个增强编辑的功能不是一两句能讲明白的，百度一下很容易的，而且有一些语言支持的也不全面，你或许可以先安装好，有空再探索一下。简单说说 surround &amp; vim-commentary</p>
+<p>surround用起来和容易处理旁边的一对(){}””等等，方法只需要输入 <code>ct(</code> 将最近的一对符号变成() <code>cs&quot;&#39;</code> 最近的双引号变成单引号。<br>vim-commentary 快捷键是  gcc ，或者选定区域用gc。<br>fugitive 和 gv 用来Git版本控制，通过 :G 等进行操作，请自行百度详细文档。</p>
+<p>还有个插件叫 gitgutter用来显示哪些行与baseline不同，我个人感觉对我作用不大。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>折腾vim纯属爱好，重要的是还利用vim编程，代码水平并不会因为编辑器提高。<br>其实更多的时候编程并不会直接就用vim，我也非常不建议用vim进行高强度的项目开发，那么多好用的IDE那么贵也是有原因的，IDE都是很有针对性的，可以很好地完成项目，VIM只是在处理一些琐事，作为一个小而美的工具存在，不要因为喜欢骑行就月月西藏青海新疆。</p>
+<p>编程虽苦，但使用这么舒服的工具，也是很欣喜啊。</p>
+<p>PS：需要网络不是太好，我可以直接打个包发给你我定制的VIM，邮箱<a href="mailto:gaoming714@126.com">gaoming714@126.com</a>，顺便扫个码。哈哈哈。</p>
+<p>更多插件可以查这个这个网站<br><a href="https://vimawesome.com/" target="_blank" rel="noopener">Vim Awesome</a></p>
+]]></content>
+      <tags>
+        <tag>vim</tag>
+        <tag>Vundle</tag>
+      </tags>
+  </entry>
+</search>
